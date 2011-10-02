@@ -11,6 +11,10 @@ from models import User
 def index(request):
     return {}
 
+@view_config(permission='view', route_name='contact', renderer='contact.jinja2')
+def contact(request):
+    return {}
+
 @view_config(permission='view', route_name='login', renderer='login.jinja2')
 def login_view(request):
     main_view = route_url('index', request)

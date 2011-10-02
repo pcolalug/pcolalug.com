@@ -8,6 +8,7 @@
         <script src="/static/js/jquery.js" type="text/javascript"></script>
         <script src="/static/js/modernizr.js" type="text/javascript"></script>
         <script src="/static/js/less.js" type="text/javascript"></script>
+        <script src="/static/js/site.js" type="text/javascript"></script>
     </head>
     <body>
         <nav id="user">
@@ -27,7 +28,7 @@
                 <li><a href="{{'index'|route_url}}">Home</a></li>
                 <li><a href="#">Forums</a></li>
                 <li><a href="#">Presentations</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{{'contact'|route_url}}">Contact</a></li>
                     {% if request.user %}
                         <li><a href="#">Admin</a></li>
                     {% endif %}
