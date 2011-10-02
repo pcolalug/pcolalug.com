@@ -5,26 +5,28 @@
 
 Welcome to pcolalug's documentation!
 ====================================
-===============
+=================
 Getting Started
-===============
+=================
 Our development environment should simulate production. No use of sqlite for database.
 
 Install and Setup your virtualenv::
-    $ pip install virtualenv
-    $ virtualenv --no-site-packages pcolalug.org
-    $ cd pcolalug.org
-    $ source bin/active
-    $ mkdir src
-    $ cd src
-    $ git clone git@github.com:pcolalug/pcolalug.org.git
+
+$ pip install virtualenv
+$ virtualenv --no-site-packages pcolalug.org
+$ cd pcolalug.org
+$ source bin/active
+$ mkdir src
+$ cd src
+$ git clone git@github.com:pcolalug/pcolalug.org.git
 
 Install redis, mongodb, and postgresql, then::
-    $ createdb pcolalug
-    $ pip install requirements.pip
-    $ python setup.py develop
-    $ supervisord
-    $ supervisorctl
+
+$ createdb pcolalug
+$ pip install requirements.pip
+$ python setup.py develop
+$ supervisord
+$ supervisorctl
 
 ================
 Resources
