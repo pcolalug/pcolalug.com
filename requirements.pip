@@ -1,0 +1,4 @@
+pyramid
+sphinx
+gunicorn
+supervisor
