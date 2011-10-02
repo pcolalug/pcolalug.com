@@ -9,6 +9,7 @@ Welcome to pcolalug's documentation!
 Getting Started
 ===============
 Our development environment should simulate production. No use of sqlite for database.
+
 Install and Setup your virtualenv::
     $ pip install virtualenv
     $ virtualenv --no-site-packages pcolalug.org
@@ -17,7 +18,6 @@ Install and Setup your virtualenv::
     $ mkdir src
     $ cd src
     $ git clone git@github.com:pcolalug/pcolalug.org.git
-
 
 Install redis, mongodb, and postgresql, then::
     $ createdb pcolalug
@@ -29,11 +29,11 @@ Install redis, mongodb, and postgresql, then::
 ================
 Resources
 ================
-http://www.sqlalchemy.org/docs/
-https://docs.pylonsproject.org/
-http://www.formencode.org/en/latest/index.html
-http://sphinx.pocoo.org/
-http://jinja.pocoo.org/docs/
+- http://www.sqlalchemy.org/docs/
+- https://docs.pylonsproject.org/
+- http://www.formencode.org/en/latest/index.html
+- http://sphinx.pocoo.org/
+- http://jinja.pocoo.org/docs/
 
 
 .. toctree::
