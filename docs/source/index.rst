@@ -18,6 +18,7 @@ Install and Setup your virtualenv::
     $ cd src
     $ git clone git@github.com:pcolalug/pcolalug.org.git
 
+
 Install redis, mongodb, and postgresql, then::
     $ createdb pcolalug
     $ pip install requirements.pip
