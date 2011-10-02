@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>pcolalug {% block title %}{% endblock %}</title>
+        <link rel="stylesheet/css" type="text/css" href="/static/css/boilerplate.css">
+        <link rel="stylesheet/less" type="text/css" href="/static/css/reset.less">
+        <link rel="stylesheet/less" type="text/css" href="/static/css/styles.less">
+
+        <script src="/static/js/jquery.js" type="text/javascript"></script>
+        <script src="/static/js/modernizr.js" type="text/javascript"></script>
+        <script src="/static/js/less.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <nav id="user">
+            <ul>
+                {% if request.user %}
+                    <li>Welcome, {{ request.user.username }} (<a href="{{'logout'|route_url}}">Logout</a>)</li>
+                {% else %}
+                    <a href="{{'login'|route_url}}">Login</a>
+                {% endif %}
+            </ul>
+        </nav>
+        <section id="logo">
+            <img src="/static/images/logo.png" />
+        </section>
+        <nav id="menu">
+            {% if request.user %}
+            <ul>
+                <li><a href="{{'index'|route_url}}">Home</a></li>
+                <li><a href="#">Forums</a></li>
+                <li><a href="#">Presentations</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            {% endif %}
+        </nav>
+        <section id="container">
+            {% block flash %}
+                {% if request.session.peek_flash() %}
+                    <div id="flash">
+                        {% for message in request.session.pop_flash() %}
+                            {{ message }}<br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+            <section id="inner-container">
+                {% block content %}
+                {% endblock %}
+            </section>
+        </section>
+    </body>
+</html>
