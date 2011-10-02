@@ -22,16 +22,16 @@
         <section id="logo">
             <img src="/static/images/logo.png" />
         </section>
+        {% if request.user %}
         <nav id="menu">
-            {% if request.user %}
             <ul>
                 <li><a href="{{'index'|route_url}}">Home</a></li>
                 <li><a href="#">Forums</a></li>
                 <li><a href="#">Presentations</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-            {% endif %}
         </nav>
+        {% endif %}
         <section id="container">
             {% block flash %}
                 {% if request.session.peek_flash() %}
