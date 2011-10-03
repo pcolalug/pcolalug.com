@@ -9,6 +9,7 @@ from models import initialize_sql, User
 from pyramid.decorator import reify
 from pyramid.request import Request
 from pyramid.security import unauthenticated_userid
+import pyramid
 
 class RequestWithUserAttribute(Request):
     @reify
@@ -51,4 +52,8 @@ def main(global_config, **settings):
     config.scan()
 
     return config.make_wsgi_app()
+
+from pyramid.paster import get_app
+app = get_app('development.ini')
+
 
