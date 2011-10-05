@@ -7,6 +7,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import synonym
 from sqlalchemy.types import Integer
 from sqlalchemy.types import Unicode
+from sqlalchemy.types import UnicodeText
+from sqlalchemy.types import DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.exc import IntegrityError
 
@@ -65,6 +67,17 @@ class User(Base):
         if not user:
             return False
         return crypt.check(user.password, password)
+
+class Presentation(Base):
+    """
+    A meeting we are having
+    """
+    __tablename__ = 'events'
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode(20), unique=True)
+    description = Column(UnicodeText)
+    presenter = Column(Unicode(200), unique=True)
+    date = Column(DateTime)
 
 class RootFactory(object):
     __acl__ = [
