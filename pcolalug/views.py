@@ -6,28 +6,37 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 import urllib
 from models import User
-from datetime import datetime
 from dateutil import tz
-
+from icalendar import Calendar
 DATE_FORMAT = "%B %d, %Y @ %-I:%M %p"
+DATE_FORMAT_NO_TIME = "%B %d, %Y @ All Day"
 
 @view_config(permission='view', route_name='index', renderer='index.jinja2')
 def index(request):
 
     ics = urllib.urlopen("https://www.google.com/calendar/ical/pcolalug%40gmail.com/public/basic.ics").read()
-    events = [] 
-    import vobject
-    vobject.readComponents(ics)
-    for event in list(vobject.readComponents(ics))[:10]:
+    events = []
+
+    cal = Calendar.from_string(ics)
+
+    for event in cal.walk('vevent'):
         to_zone = tz.gettz('America/Chicago')
 
-        date = event.vevent.dtstart.value.astimezone(to_zone)
+        date = event.get('dtstart').dt
+        format = DATE_FORMAT
+        if hasattr(date, 'astimezone'):
+            date = event.get('dtstart').dt.astimezone(to_zone)
+        else:
+            format = DATE_FORMAT_NO_TIME
+
+        description = event.get('description')
 
         events.append({
-                    'start': date.strftime(DATE_FORMAT),
-                    'description': event.vevent.description.value,
+                    'start': date.strftime(format),
+                    'description': description if description else 'No Description', 
                     })
-        return {'events': events}
+    sorted_list = sorted(events, key=lambda k: k['start'], reverse=True)
+    return {'events': sorted_list[:10]}
 
 @view_config(permission='view', route_name='contact', renderer='contact.jinja2')
 def contact(request):
