@@ -18,7 +18,7 @@ def index(request):
     events = [] 
     import vobject
     vobject.readComponents(ics)
-    for event in vobject.readComponents(ics):
+    for event in list(vobject.readComponents(ics))[:10]:
         to_zone = tz.gettz('America/Chicago')
 
         date = event.vevent.dtstart.value.astimezone(to_zone)
