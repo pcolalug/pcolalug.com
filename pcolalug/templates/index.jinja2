@@ -1,11 +1,12 @@
 {% extends "layout.jinja2" %}
 {% block content %}
-<h1>index</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel mi at dolor mollis euismod in ut est. Vestibulum viverra rutrum erat, ut ullamcorper lectus ultricies at. Fusce ultricies rutrum ultrices. Morbi aliquet sodales augue, id tristique velit imperdiet et. Ut eros neque, pretium at vehicula a, ornare vitae leo. Praesent viverra, nisl euismod eleifend tristique, libero orci condimentum ante, eleifend tristique ante risus sed elit. Morbi lacinia erat in est iaculis ut semper arcu congue. Praesent luctus adipiscing tincidunt. In dapibus nisi sed nibh sagittis accumsan. Duis sit amet magna tristique tellus sollicitudin dignissim quis et tortor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque dignissim tellus nisi, porta condimentum magna. Curabitur pellentesque neque eu orci consectetur accumsan ac posuere ipsum. Nam augue lacus, pellentesque non tristique at, iaculis vitae turpis.</p>
-
-<p>Aenean quis elit felis. Donec tempus urna at nulla convallis sit amet congue nulla volutpat. Vivamus in neque dolor. Sed venenatis dapibus ornare. Nulla vitae blandit erat. Morbi a dolor est, vitae varius velit. Nullam vel nisi quam.</p>
-
-<p>Mauris vel ultrices diam. Integer fermentum consectetur mollis. Praesent imperdiet sagittis justo, at interdum mauris pulvinar quis. Phasellus at justo vitae massa fermentum egestas eget vel nibh. Morbi vitae odio non nisl viverra vestibulum. Donec est turpis, iaculis in porttitor nec, placerat eu magna. Donec semper interdum turpis vitae cursus. Nam eget iaculis elit. Aenean ac tincidunt dui. Pellentesque tempus pretium ligula, id faucibus odio condimentum at. Vivamus ante nunc, fringilla nec vestibulum eu, ultrices a mauris. Mauris eleifend facilisis metus eu sagittis.</p>
-
-
+<h1>Upcoming Meetings:</h1>
+<p>
+{% for event in events %}
+    <div>
+        <h3>{{ event.start }}</h3>
+        <div>{{ event.description }}</div>
+    </div>
+</p>
+{% endfor %}
 {% endblock %}

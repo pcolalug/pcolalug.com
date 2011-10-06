@@ -4,12 +4,30 @@ from pyramid.url import route_url
 from pyramid.httpexceptions import HTTPMovedPermanently
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
-
+import urllib
 from models import User
+from datetime import datetime
+from dateutil import tz
+
+DATE_FORMAT = "%B %d, %Y @ %-I:%M %p"
 
 @view_config(permission='view', route_name='index', renderer='index.jinja2')
 def index(request):
-    return {}
+
+    ics = urllib.urlopen("https://www.google.com/calendar/ical/pcolalug%40gmail.com/public/basic.ics").read()
+    events = [] 
+    import vobject
+    vobject.readComponents(ics)
+    for event in vobject.readComponents(ics):
+        to_zone = tz.gettz('America/Chicago')
+
+        date = event.vevent.dtstart.value.astimezone(to_zone)
+
+        events.append({
+                    'start': date.strftime(DATE_FORMAT),
+                    'description': event.vevent.description.value,
+                    })
+        return {'events': events}
 
 @view_config(permission='view', route_name='contact', renderer='contact.jinja2')
 def contact(request):

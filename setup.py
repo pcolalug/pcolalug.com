@@ -19,6 +19,8 @@ requires = [
     'psycopg2',
     'cryptacular',
     'PyCrypto',
+    'python-dateutil==1.5',
+    'vobject',
     ]
 
 if sys.version_info[:3] < (2,5,0):
