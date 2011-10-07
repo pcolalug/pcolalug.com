@@ -2,6 +2,7 @@ import unittest
 from pyramid import testing
 from pyramid.paster import get_app
 
+from webtest import TestApp
 from mock import patch
 import os
 
@@ -10,7 +11,6 @@ ROOT = os.path.dirname(__file__)
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
         app = get_app('development.ini')
-        from webtest import TestApp
         self.app = TestApp(app)
         self.config = testing.setUp()
 
