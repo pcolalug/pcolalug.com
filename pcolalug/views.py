@@ -29,11 +29,13 @@ def index(request):
         else:
             format = DATE_FORMAT_NO_TIME
 
-        description = event.get('description')
+        description = event.get('description', '')
+        summary = event.get('summary', '')
 
         events.append({
                     'start': date.strftime(format),
-                    'description': description if description else 'No Description', 
+                    'description': description if description else 'No Description',
+                    'summary': summary,
                     })
     sorted_list = sorted(events, key=lambda k: k['start'], reverse=True)
     return {'events': sorted_list[:10]}
@@ -47,7 +49,7 @@ def calendar(request):
     return {}
 
 @view_config(permission='view', route_name='login', renderer='login.jinja2')
-def login_view(request):
+def login(request):
     main_view = route_url('index', request)
     came_from = request.params.get('came_from', main_view)
     post_data = request.POST
@@ -62,14 +64,16 @@ def login_view(request):
             return HTTPFound(location=came_from, headers=headers)
     else:
         logged_in = authenticated_userid(request)
-        return {'loggedin': logged_in}
+
+        if logged_in:
+            return HTTPFound(location=came_from, headers=headers)
 
     request.session.flash(u'Failed to login.')
     return {}
 
 
 @view_config(permission='authed', route_name='logout')
-def logout_view(request):
+def logout(request):
     request.session.invalidate()
     request.session.flash(u'Logged out successfully.')
     headers = forget(request)
