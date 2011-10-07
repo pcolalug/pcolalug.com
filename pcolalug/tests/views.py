@@ -7,12 +7,6 @@ _ = TranslationStringFactory('pcolalug')
 from mock import patch
 import os
 
-from pcolalug.views import index
-from pcolalug.views import contact
-from pcolalug.views import calendar
-from pcolalug.views import login
-from pcolalug.views import logout
-
 ROOT = os.path.dirname(__file__)
 
 class ViewTests(unittest.TestCase):
@@ -26,6 +20,7 @@ class ViewTests(unittest.TestCase):
     @patch('urllib.urlopen')
     def test_index(self, urlopen_mock):
         """ Make sure index parses ical properly """
+        from pcolalug.views import index
         output = open(os.path.join(ROOT,'data/basic.ics'))
         urlopen_mock.return_value = output
 
@@ -36,18 +31,21 @@ class ViewTests(unittest.TestCase):
 
     def test_contact(self):
         """ Make sure we can get to contact page"""
+        from pcolalug.views import contact
         request = testing.DummyRequest()
         response = contact(request)
         self.assertEqual(response, {}) 
 
     def test_calendar(self):
         """ Make sure we can get to calendar page"""
+        from pcolalug.views import calendar
         request = testing.DummyRequest()
         response = calendar(request)
         self.assertEqual(response, {}) 
 
     def test_login_fails_empty(self):
         """ Make sure we can't login with empty credentials"""
+        from pcolalug.views import login
         self.config.add_route('index', '/')
 
         request = testing.DummyRequest()
@@ -56,6 +54,7 @@ class ViewTests(unittest.TestCase):
 
     def test_login_fails_bad(self):
         """ Make sure we can't login with bad credentials"""
+        from pcolalug.views import login
         self.config.add_route('index', '/')
 
         request = testing.DummyRequest()
@@ -70,6 +69,7 @@ class ViewTests(unittest.TestCase):
 
     def test_login(self):
         """ Make sure we can login """
+        from pcolalug.views import login
         self.config.add_route('index', '/')
 
         request = testing.DummyRequest()
