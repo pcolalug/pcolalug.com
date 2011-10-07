@@ -21,7 +21,7 @@ class ViewTests(unittest.TestCase):
     def test_index(self, urlopen_mock):
         """ Make sure index parses ical properly """
         from pcolalug.views import index
-        output = open(os.path.join(ROOT,'data/basic.ics'))
+        output = open(os.path.join(ROOT, '../data/basic.ics'))
         urlopen_mock.return_value = output
 
         request = testing.DummyRequest()

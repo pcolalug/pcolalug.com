@@ -9,7 +9,6 @@ from models import initialize_sql, User
 from pyramid.decorator import reify
 from pyramid.request import Request
 from pyramid.security import unauthenticated_userid
-import pyramid
 
 class RequestWithUserAttribute(Request):
     @reify

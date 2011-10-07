@@ -23,9 +23,10 @@ requires = [
     'icalendar',
     'mock',
     'coverage',
+    'webtest',
     ]
 
-if sys.version_info[:3] < (2,5,0):
+if sys.version_info[:3] < (2,5,0): # pragma: no cover
     requires.append('pysqlite')
 
 setup(name='pcolalug',
