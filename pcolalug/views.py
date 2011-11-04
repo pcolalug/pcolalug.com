@@ -62,13 +62,13 @@ def login(request):
             headers = remember(request, login)
             request.session.flash(u'Logged in successfully.')
             return HTTPFound(location=came_from, headers=headers)
+        request.session.flash(u'Failed to login.')
     else:
         logged_in = authenticated_userid(request)
 
         if logged_in:
             return HTTPFound(location=came_from, headers=headers)
 
-    request.session.flash(u'Failed to login.')
     return {}
 
 

@@ -8,23 +8,7 @@ README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
-    'pyramid',
-    'SQLAlchemy',
-    'transaction',
-    'pyramid_tm',
-    'pyramid_debugtoolbar',
-    'pyramid_jinja2',
-    'pyramid_beaker',
-    'zope.sqlalchemy',
-    'psycopg2',
-    'cryptacular',
-    'PyCrypto',
-    'python-dateutil==1.5',
-    'icalendar',
-    'mock',
-    'coverage',
-    'webtest',
-    ]
+]
 
 if sys.version_info[:3] < (2,5,0): # pragma: no cover
     requires.append('pysqlite')
