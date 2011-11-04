@@ -4,6 +4,8 @@ from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid_beaker import session_factory_from_settings
 
 from sqlalchemy import engine_from_config
+from sqlalchemy import create_engine
+
 from models import initialize_sql, User
 
 from pyramid.decorator import reify
@@ -22,7 +24,20 @@ class RequestWithUserAttribute(Request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    engine = engine_from_config(settings, 'sqlalchemy.')
+    if settings.get('sqlalchemy.url', None):
+        engine = engine_from_config(settings, 'sqlalchemy.')
+    else:
+        from bundle_config import config
+
+        url = "postgresql+psycopg2://%(user)s:%(password)s@%(host)s/%(db)s" % {
+            'user': config['postgres']['username'],
+            'password': config['postgres']['password'],
+            'host': config['postgres']['host'],
+            'db': config['postgres']['database']
+        }
+
+        engine = create_engine(url)
+
     initialize_sql(engine)
 
     authn_policy = AuthTktAuthenticationPolicy('pc0lalugs0secret')
