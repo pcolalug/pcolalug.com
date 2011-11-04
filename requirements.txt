@@ -1,7 +1,7 @@
 sphinx
 gunicorn
 supervisor
-zope.interface
+zope.interface==3.8
 pyramid
 SQLAlchemy
 transaction
