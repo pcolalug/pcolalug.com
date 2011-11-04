@@ -29,12 +29,7 @@ def main(global_config, **settings):
     else:
         from bundle_config import config
 
-        url = "postgresql+psycopg2://%(user)s:%(password)s@%(host)s/%(db)s" % {
-            'user': config['postgres']['username'],
-            'password': config['postgres']['password'],
-            'host': config['postgres']['host'],
-            'db': config['postgres']['database']
-        }
+        url = "postgresql+psycopg2://%(username)s:%(password)s@%(host)s/%(database)s" % config['postgres']
 
         engine = create_engine(url)
 
