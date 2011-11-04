@@ -24,6 +24,7 @@ class RequestWithUserAttribute(Request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    print 'In main'
     if settings.get('sqlalchemy.url', None):
         engine = engine_from_config(settings, 'sqlalchemy.')
     else:
@@ -31,7 +32,7 @@ def main(global_config, **settings):
 
         url = u"postgresql+psycopg2://%(username)s:%(password)s@%(host)s:%(port)s/%(database)s" % config['postgres']
         print "USING URL: %s" % url
-        engine = create_engine(url)
+        engine = create_engine(url, echo=True)
 
     initialize_sql(engine)
 
