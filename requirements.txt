@@ -1,6 +1,7 @@
 sphinx
 gunicorn
 supervisor
+zope.interface
 pyramid
 SQLAlchemy
 transaction
