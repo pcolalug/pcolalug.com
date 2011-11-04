@@ -89,6 +89,7 @@ class RootFactory(object):
         pass  # pragma: no cover
 
 def initialize_sql(engine):  # pragma: no cover
+    import pdb; pdb.set_trace()
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
