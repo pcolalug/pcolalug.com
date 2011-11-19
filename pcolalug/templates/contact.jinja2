@@ -1,22 +1,32 @@
 {% extends "layout.jinja2" %}
 {% block content %}
 <h1>Contact Us!</h1>
-<h4>Meetings</h4>
-<p>The Pensacola Linux User's Group meets at 7:00 pm every third Tuesday of the month.</p>
-<p>Go <a href="{{'calendar'|route_url}}">here</a> to see our Calendar</p>
-<h4>Mailing List</h4>
-<p>
-    <a href="http://groups.google.com/group/pcolalug/">http://groups.google.com/group/pcolalug/</a>
-</p>
-<h4>IRC</h4>
-<p>
-    irc.freenode.net #pensacola_linux
-</p>
-or
-<a href="javascript:void(0);" onclick="showIrc()">Web Client</a><br />
-<p id="irc-web-chat">
-    <iframe width="600" height="380" scrolling="no" frameborder="0"
-        src="http://webchat.freenode.net/?channels=pensacola_linux">
-    </iframe>
-</p>
+<div class="contact">
+  <h4>Meetings</h4>
+  <p>The Pensacola Linux User's Group meets at 7:00 pm every third Tuesday of the month.</p>
+  <p>Go <a href="{{'calendar'|route_url}}">here</a> to see our Calendar</p>
+</div>
+<div class="contact">
+  <h4>Mailing List</h4>
+  <p>
+      <a href="http://groups.google.com/group/pcolalug/">http://groups.google.com/group/pcolalug/</a>
+  </p>
+</div>
+<div class="contact">
+  <h4>IRC</h4>
+  <p>
+      irc.freenode.net #pensacola_linux
+  </p>
+  or
+  <a href="javascript:void(0);" onclick="showIrc()">Web Client</a><br />
+  <p id="irc-web-chat">
+      <iframe width="600" height="380" scrolling="no" frameborder="0"
+          src="http://webchat.freenode.net/?channels=pensacola_linux">
+      </iframe>
+  </p>
+</div>
+<div class="contact">
+  <h4>Facebook</h4>
+  <a href="https://www.facebook.com/groups/88020407734/">Facebook Group</a>
+</div>
 {% endblock %}
