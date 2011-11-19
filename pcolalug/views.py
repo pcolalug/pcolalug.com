@@ -37,7 +37,9 @@ def index(request):
                     'description': description if description else 'No Description',
                     'summary': summary,
                     })
-    sorted_list = sorted(events, key=lambda k: k['start'], reverse=True)
+
+    sorted_list = sorted(events, key=lambda k: k['start'])
+
     return {'events': sorted_list[:10]}
 
 @view_config(permission='view', route_name='contact', renderer='contact.jinja2')
