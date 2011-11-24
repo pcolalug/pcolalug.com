@@ -31,11 +31,16 @@ def index(request):
 
         description = event.get('description', '')
         summary = event.get('summary', '')
+        location = event.get('location', '')
+
+        if not location:
+            location = "TBA"
 
         events.append({
                     'start': date.strftime(format),
                     'description': description if description else 'No Description',
                     'summary': summary,
+                    'location': location
                     })
 
     sorted_list = sorted(events, key=lambda k: k['start'])
