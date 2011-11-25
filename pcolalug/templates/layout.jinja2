@@ -17,9 +17,9 @@
         <nav id="user">
             <ul>
                 {% if request.user %}
-                    <li>Welcome, {{ request.user.username }} (<a href="{{'logout'|route_url}}">Logout</a>)</li>
+                    <li>Welcome, {{ request.user.username }} (<a href="{{ request.route_url('logout') }}">Logout</a>)</li>
                 {% else %}
-                    <a href="{{'login'|route_url}}">Login</a>
+                    <a href="{{ request.route_url('login') }}">Login</a>
                 {% endif %}
             </ul>
         </nav>
@@ -28,11 +28,11 @@
         </section>
         <nav id="menu">
             <ul>
-                <li><a href="{{'index'|route_url}}">Home</a></li>
+                <li><a href="{{ request.route_url('index') }}">Home</a></li>
                 <li><a href="#">Forums</a></li>
                 <li><a href="#">Presentations</a></li>
-                <li><a href="{{'calendar'|route_url}}">Calendar</a></li>
-                <li><a href="{{'contact'|route_url}}">Contact</a></li>
+                <li><a href="{{ request.route_url('calendar') }}">Calendar</a></li>
+                <li><a href="{{ request.route_url('contact') }}">Contact</a></li>
                     {% if request.user %}
                         <li><a href="#">Admin</a></li>
                     {% endif %}
