@@ -2,6 +2,8 @@ pyramid_tm
 pyramid_debugtoolbar
 pyramid_jinja2
 pyramid_beaker
+pyramid_mailer
+
 sphinx
 gunicorn
 supervisor

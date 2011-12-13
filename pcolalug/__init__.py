@@ -60,6 +60,8 @@ def main(global_config, **settings):
 
     config.registry.registerUtility(DBSession, ISUSession)
 
+    config.include('pyramid_mailer')
+
     config.include('pyramid_signup')
 
     config.add_view('pyramid_signup.views.AuthController', attr='login', route_name='login',
