@@ -9,7 +9,7 @@ gunicorn
 supervisor
 zope.interface==3.8
 pyramid
-SQLAlchemy
+SQLAlchemy>=0.7
 transaction
 zope.sqlalchemy
 psycopg2
