@@ -22,7 +22,7 @@
         <nav id="user">
             <ul>
                 {% if request.user %}
-                    <li>Welcome, <a href="{{ request.route_url('profile') }}">{{ request.user.username }}</a> (<a href="{{ request.route_url('logout') }}">Logout</a>)</li>
+                    <li>Welcome, <a href="{{ request.route_url('profile') }}">{{ request.user.display_name }}</a> (<a href="{{ request.route_url('logout') }}">Logout</a>)</li>
                 {% else %}
                     <a href="{{ request.route_url('register') }}">Register</a>
                     or
