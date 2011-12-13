@@ -5,7 +5,7 @@ from sqlalchemy.types import UnicodeText
 from sqlalchemy.types import DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
-from pyramid_signup import SUEntity
+from pyramid_signup.models import SUEntity
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
