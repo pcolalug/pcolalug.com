@@ -7,8 +7,8 @@ pyramid_mailer
 sphinx
 gunicorn
 supervisor
-zope.interface==3.8
-pyramid
+zope.interface>=3.8
+pyramid>=1.3a1
 SQLAlchemy>=0.7
 transaction
 zope.sqlalchemy
