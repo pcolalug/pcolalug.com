@@ -5,7 +5,7 @@ from icalendar import Calendar
 DATE_FORMAT = "%B %d, %Y @ %-I:%M %p"
 DATE_FORMAT_NO_TIME = "%B %d, %Y @ All Day"
 
-@view_config(permission='view', route_name='index', renderer='index.jinja2')
+@view_config(route_name='index', renderer='index.jinja2')
 def index(request):
 
     ics = urllib.urlopen("https://www.google.com/calendar/ical/pcolalug%40gmail.com/public/basic.ics").read()
@@ -41,10 +41,10 @@ def index(request):
 
     return {'events': sorted_list[:10]}
 
-@view_config(permission='view', route_name='contact', renderer='contact.jinja2')
+@view_config(route_name='contact', renderer='contact.jinja2')
 def contact(request):
     return {}
 
-@view_config(permission='view', route_name='calendar', renderer='calendar.jinja2')
+@view_config(route_name='calendar', renderer='calendar.jinja2')
 def calendar(request):
     return {}

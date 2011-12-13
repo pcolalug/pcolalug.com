@@ -47,7 +47,6 @@ def main(global_config, **settings):
 
     config = Configurator(
         settings=settings,
-        root_factory='pcolalug.models.RootFactory',
         authentication_policy=authn_policy,
         authorization_policy=authz_policy,
         session_factory=session_factory
