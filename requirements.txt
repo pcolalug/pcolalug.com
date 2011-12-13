@@ -21,11 +21,6 @@ mock
 coverage
 webtest
 
-pyramid
-pyramid_mailer
-pyramid_tm
-pyramid_beaker
-
 pystache
 
 -e git+https://github.com/sontek/deform_jinja2.git#egg=deform_jinja2
