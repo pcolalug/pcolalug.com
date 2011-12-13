@@ -21,11 +21,11 @@ body {
 }
 nav#user {
     float: right;
-    padding: 10px;
     background-color: @pcola-yellow;
     margin-right: 30px;
     .border-radius(5px);
     color: @pcola-grey;
+    padding: 10px;
 }
 
 nav#user a, body a {
@@ -35,11 +35,14 @@ section#logo {
     float: left;
 }
 nav#menu { 
-    margin-top: 50px;
+    margin-top: 30px;
     float: left;
     background-color: @pcola-yellow ;
     padding: 10px;
     .border-radius(5px);
+}
+nav#user ul {
+    list-style: none;
 }
 nav#menu li {
     float: left;
@@ -60,17 +63,6 @@ h1 {
     text-shadow: #efefef 1px 1px 0px;
 }
 
-#flash {
-    color: #9F6000;
-    background-color: #FEEFB3;
-    background-image: url('/static/images/warning.png');
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    border: 1px solid;
-    margin: 10px 0px;
-    padding:15px 10px 15px 50px;
-
-}
 section#container {
     width: 90%;
     margin: 0 auto;
@@ -95,3 +87,26 @@ section#inner-container p {
 .contact {
     padding-bottom: 15px;
 }
+
+#login_form {
+    width: 500px;
+}
+.uniform .ctrlholder.error, .uniform .ctrlholder.focused.error {
+    margin-bottom: 10px;
+}
+
+div.error p.error {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.uniform .ctrlHolder.error input {
+    margin-right: 10px;
+}
+span.req {
+    color: #FF0000;
+    font-weight: bold;
+}
+.uniform .textinput, .uniform textarea {
+    margin-right: 10px;
+}
+

@@ -1,3 +1,7 @@
+pyramid_tm
+pyramid_debugtoolbar
+pyramid_jinja2
+pyramid_beaker
 sphinx
 gunicorn
 supervisor
@@ -5,10 +9,6 @@ zope.interface==3.8
 pyramid
 SQLAlchemy
 transaction
-pyramid_tm
-pyramid_debugtoolbar
-pyramid_jinja2
-pyramid_beaker
 zope.sqlalchemy
 psycopg2
 cryptacular
@@ -18,3 +18,7 @@ icalendar
 mock
 coverage
 webtest
+
+-e git+https://github.com/sontek/deform_jinja2.git#egg=deform_jinja2
+-e git+https://github.com/sontek/pyramid_signup.git#egg=pyramid_signup
+-e git+https://github.com/Pylons/pyramid_deform.git#egg=pyramid_deform
