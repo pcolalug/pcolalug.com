@@ -10,6 +10,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
 from pyramid_signup.models import User
+from pyramid_signup.models import UserGroup
 from pyramid_signup.models import SUEntity
 
 from pyramid.paster import (
@@ -58,7 +59,10 @@ def main(argv=sys.argv): # pragma: no cover
 
 
     with transaction.manager:
+        group = UserGroup('admin', 'Admin Group')
         admin = User(username=username, password=password, email=email, activated=True)
+        admin.groups.append(group)
+        session.add(group)
         session.add(admin)
 
 if __name__ == "__main__": # pragma: no cover

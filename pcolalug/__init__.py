@@ -12,6 +12,8 @@ from pyramid_signup.interfaces import ISURegisterForm
 from pyramid_signup.interfaces import ISUForgotPasswordForm
 from pyramid_signup.interfaces import ISUResetPasswordForm
 from pyramid_signup.interfaces import ISUProfileForm
+from pyramid_signup import groupfinder
+
 
 import deform
 from deform_jinja2 import jinja2_renderer_factory
@@ -38,7 +40,8 @@ def main(global_config, **settings):
     Base.metadata.create_all(engine)
 
 
-    authn_policy = AuthTktAuthenticationPolicy('pc0lalugs0secret')
+    authn_policy = AuthTktAuthenticationPolicy('pc0lalugs0secret', callback=groupfinder)
+
     authz_policy = ACLAuthorizationPolicy()
 
     session_factory = session_factory_from_settings(settings)
