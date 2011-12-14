@@ -24,5 +24,5 @@ webtest
 pystache
 
 -e git+https://github.com/sontek/deform_jinja2.git#egg=deform_jinja2
--e git+https://github.com/sontek/pyramid_signup.git#egg=pyramid_signup
+-e git+https://github.com/sontek/pyramid_signup.git#egg=pyramid_signup #nocache
 -e git+https://github.com/Pylons/pyramid_deform.git#egg=pyramid_deform
