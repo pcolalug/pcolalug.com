@@ -70,7 +70,11 @@ def handle_profile_group(event):
     if has_permission('group:admin', request.context, request):
         mgr = UserGroupManager(request)
         group_pk = event.values.get('group', None)
-        group = mgr.get_by_pk(group_pk)
 
-        if not group in event.user.groups:
-            event.user.groups.append(group)
+        if group_pk:
+            group = mgr.get_by_pk(group_pk)
+
+            if not group in event.user.groups:
+                event.user.groups.append(group)
+        else:
+            event.user.groups.pop()
