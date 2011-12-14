@@ -8,12 +8,13 @@
   <th>First Name</th>
   <th>Last Name</th>
   <th>Email</th>
+  <th>Activated?</th>
   <th>Actions</th>
 </tr>
 {% for user in users %}
   <tr>
     <td>
-      {{ user.username }}
+      <a href="{{ request.route_url('profile', user_pk=user.pk) }}">{{ user.username }}</a>
     </td>
     <td>
       {{ user.first_name }}
@@ -25,7 +26,12 @@
       {{ user.email }}
     </td>
     <td>
-      <a href="{{ request.route_url('profile', user_pk=user.pk) }}">View</a>
+      {{ user.activated }}
+    </td>
+    <td>
+      {% if user.activated == False %}
+        <a href="{{ request.route_url('activate', user_pk=user.pk, code=user.activation.code) }}">Activate</a>
+      {% endif %}
     </td>
   </tr>
 {% endfor %}
