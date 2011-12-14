@@ -3,6 +3,7 @@ from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid_beaker import session_factory_from_settings
 
+
 from sqlalchemy import engine_from_config
 from sqlalchemy import create_engine
 
@@ -12,6 +13,8 @@ from pyramid_signup.interfaces import ISURegisterForm
 from pyramid_signup.interfaces import ISUForgotPasswordForm
 from pyramid_signup.interfaces import ISUResetPasswordForm
 from pyramid_signup.interfaces import ISUProfileForm
+from pyramid_signup.interfaces import ISUProfileSchema
+from pyramid_signup.events import ProfileUpdatedEvent
 from pyramid_signup import groupfinder
 
 
@@ -22,6 +25,8 @@ from deform_jinja2.translator import PyramidTranslator
 from pcolalug.models import DBSession
 from pcolalug.models import Base
 from pcolalug.forms import UNIForm
+from pcolalug.schemas import LUGProfileSchema
+from pcolalug.views import handle_profile_group
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -79,7 +84,8 @@ def main(global_config, **settings):
             renderer='pcolalug:templates/register.jinja2')
 
     config.add_view('pyramid_signup.views.ProfileController', attr='profile', route_name='profile',
-            renderer='pcolalug:templates/profile.jinja2')
+            renderer='pcolalug:templates/profile.jinja2',
+            permission='access_user')
 
     override_forms = [
         ISULoginForm, ISURegisterForm, ISUForgotPasswordForm,
@@ -88,11 +94,17 @@ def main(global_config, **settings):
     for form in override_forms:
         config.registry.registerUtility(UNIForm, form)
 
+    config.registry.registerUtility(LUGProfileSchema, ISUProfileSchema)
+
 
     config.add_static_view('static', 'pcolalug:static', cache_max_age=3600)
     config.add_route('index', '/') 
     config.add_route('contact', '/contact')
     config.add_route('calendar', '/calendar')
+    config.add_route('admin', '/admin')
+#    config.add_route('admin_profile', '/profile/{id}')
+
+    config.add_subscriber(handle_profile_group, ProfileUpdatedEvent)
 
     config.scan()
 

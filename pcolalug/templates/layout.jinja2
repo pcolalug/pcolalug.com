@@ -22,7 +22,7 @@
         <nav id="user">
             <ul>
                 {% if request.user %}
-                    <li>Welcome, <a href="{{ request.route_url('profile') }}">{{ request.user.display_name }}</a> (<a href="{{ request.route_url('logout') }}">Logout</a>)</li>
+                    <li>Welcome, <a href="{{ request.route_url('profile', user_pk=request.user.pk) }}">{{ request.user.display_name }}</a> (<a href="{{ request.route_url('logout') }}">Logout</a>)</li>
                 {% else %}
                     <a href="{{ request.route_url('register') }}">Register</a>
                     or
@@ -41,7 +41,7 @@
                 <li><a href="{{ request.route_url('contact') }}">Contact</a></li>
                 <li><a href="http://old.pcolalug.com" target="_blank">Old Site</a></li>
                 {% if has_permission(request, 'group:admin') %}
-                  <li><a href="#" target="_blank">Admin</a></li>
+                  <li><a href="{{ request.route_url('admin') }}">Admin</a></li>
                 {% endif %}
             </ul>
         </nav>

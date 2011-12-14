@@ -1,7 +1,14 @@
 from pyramid.view import view_config
+from pyramid.security import has_permission
+
 import urllib
 from dateutil import tz
 from icalendar import Calendar
+
+from pyramid_signup.managers import UserManager
+from pyramid_signup.managers import UserGroupManager
+from pyramid_signup.interfaces import ISUSession
+
 DATE_FORMAT = "%B %d, %Y @ %-I:%M %p"
 DATE_FORMAT_NO_TIME = "%B %d, %Y @ All Day"
 
@@ -48,3 +55,22 @@ def contact(request):
 @view_config(route_name='calendar', renderer='calendar.jinja2')
 def calendar(request):
     return {}
+
+@view_config(permission='group:admin', route_name='admin', renderer='admin.jinja2')
+def admin(request):
+
+    mgr = UserManager(request)
+    return {'users': mgr.get_all()}
+
+def handle_profile_group(event):
+    request = event.request
+#    session = request.registry.getUtility(ISUSession)
+#    session.commit()
+
+    if has_permission('group:admin', request.context, request):
+        mgr = UserGroupManager(request)
+        group_pk = event.values.get('group', None)
+        group = mgr.get_by_pk(group_pk)
+
+        if not group in event.user.groups:
+            event.user.groups.append(group)
