@@ -38,13 +38,14 @@ def index(request):
             location = "TBA"
 
         events.append({
+                    'real_date': date,
                     'start': date.strftime(format),
                     'description': description if description else 'No Description',
                     'summary': summary,
                     'location': location
                     })
 
-    sorted_list = sorted(events, key=lambda k: k['start'])
+    sorted_list = sorted(events, key=lambda k: k['real_date'], reverse=True)
 
     return {'events': sorted_list[:10]}
 
