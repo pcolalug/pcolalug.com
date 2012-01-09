@@ -60,7 +60,7 @@ def main(global_config, **settings):
         session_factory=session_factory
     )
 
-    renderer = jinja2_renderer_factory(uni_form=True, translator=PyramidTranslator()
+    renderer = jinja2_renderer_factory(default_templates='deform_jinja2:uni_templates', translator=PyramidTranslator()
     )
 
     deform.Form.set_default_renderer(renderer)
