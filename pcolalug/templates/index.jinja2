@@ -1,8 +1,16 @@
 {% extends "layout.jinja2" %}
 {% block content %}
 <h1>Upcoming Meetings:</h1>
-<p>
+<div id="sponsors">
+  <h3>Sponsors</h3>
+  <ul>
+    <li><a href="http://www.teksystems.com/Locations/United-States/Florida/Destin.aspx" target="_blank"><img src="/static/images/teksystems.png" alt="TEKsystems" /></a></li>
+    <li><a href="http://oreilly.com" target="_blank"><img src="/static/images/oreilly.gif" alt="O'Reilly" /></a></li>
+  </ul>
+</div>
+<div id="primary">
 {% for event in events %}
+<p>
     <div>
         <h3>{{ event.start }}</h3>
         Meeting At: {{ event.location }}
@@ -10,4 +18,5 @@
     </div>
 </p>
 {% endfor %}
+</div>
 {% endblock %}
