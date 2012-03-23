@@ -18,7 +18,7 @@ def index(request):
     ics = urllib.urlopen("https://www.google.com/calendar/ical/pcolalug%40gmail.com/public/basic.ics").read()
     events = []
 
-    cal = Calendar.from_string(ics)
+    cal = Calendar.from_ical(ics)
 
     for event in cal.walk('vevent'):
         to_zone = tz.gettz('America/Chicago')
