@@ -1,0 +1,20 @@
+{% extends "layout.jinja2" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<h1>Presentations</h1>
+
+{% if has_permission(request, 'group:admin') %}
+  <a href="{{ request.route_url('add_presentation') }}">Add Presentation</a>
+{% endif %}
+
+{% if presentations %}
+  <ul>
+  {% for presentation in presentations %}
+    <li>{{ presentation.name }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  No presentations uploaded
+{% endif %}
+{% endblock %}

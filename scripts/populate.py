@@ -18,8 +18,6 @@ from pyramid.paster import (
     setup_logging,
 )
 
-from pcolalug.models import Base
-
 from zope.sqlalchemy import ZopeTransactionExtension
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
@@ -49,9 +47,6 @@ def main(argv=sys.argv): # pragma: no cover
     session = DBSession(bind=engine)
     SUEntity.metadata.drop_all(engine)
     SUEntity.metadata.create_all(engine)
-
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
 
     username = raw_input("What is your username?: ").decode('utf-8')
     email = raw_input("What is your email?: ").decode('utf-8')

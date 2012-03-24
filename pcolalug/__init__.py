@@ -16,17 +16,20 @@ from pyramid_signup.interfaces import ISUProfileForm
 from pyramid_signup.interfaces import ISUProfileSchema
 from pyramid_signup.events import ProfileUpdatedEvent
 from pyramid_signup import groupfinder
+from pyramid_signup.models import SUEntity
 
 
 import deform
+import os
+
 from deform_jinja2 import jinja2_renderer_factory
 from deform_jinja2.translator import PyramidTranslator
 
 from pcolalug.models import DBSession
-from pcolalug.models import Base
 from pcolalug.forms import UNIForm
 from pcolalug.schemas import LUGProfileSchema
 from pcolalug.views import handle_profile_group
+from pcolalug.lib import get_data_dir
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -41,8 +44,8 @@ def main(global_config, **settings):
         engine = create_engine(url, echo=True)
 
     DBSession.configure(bind=engine)
-    Base.metadata.bind = engine
-    Base.metadata.create_all(engine)
+    SUEntity.metadata.bind = engine
+    SUEntity.metadata.create_all(engine)
 
 
     authn_policy = AuthTktAuthenticationPolicy('pc0lalugs0secret', callback=groupfinder)
@@ -50,6 +53,9 @@ def main(global_config, **settings):
     authz_policy = ACLAuthorizationPolicy()
 
     session_factory = session_factory_from_settings(settings)
+
+    data_dir = get_data_dir()
+    settings['upload_dir'] = os.path.join(data_dir, 'uploads')
 
     config = Configurator(settings=settings)
 
@@ -98,10 +104,14 @@ def main(global_config, **settings):
 
 
     config.add_static_view('static', 'pcolalug:static', cache_max_age=3600)
+    config.add_static_view('data', get_data_dir(), cache_max_age=3600)
     config.add_route('index', '/') 
     config.add_route('contact', '/contact')
     config.add_route('calendar', '/calendar')
     config.add_route('admin', '/admin')
+    config.add_route('presentations', '/presentations')
+    config.add_route('view_presentation', '/presentations/{pk}')
+    config.add_route('add_presentation', '/add/presentation')
 #    config.add_route('admin_profile', '/profile/{id}')
 
     config.add_subscriber(handle_profile_group, ProfileUpdatedEvent)

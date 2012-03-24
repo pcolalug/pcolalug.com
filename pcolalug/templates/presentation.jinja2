@@ -1,0 +1,14 @@
+{% extends "layout.jinja2" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+{% if presentation %}
+  <h1>{{ presentation.name }}</h1>
+  <p>{{ presentation.description }}</p>
+  {% if presentation.file %}
+  <p><a href="{{ presentation.file.public_url(request) }}">Download {{ presentation.file.filename }}</a></p>
+  {% endif %}
+{% else %}
+  That presentation doesn't exist
+{% endif %}
+{% endblock %}
