@@ -102,7 +102,6 @@ def add_presentation(request):
         except deform.ValidationFailure, e:
             return {'form': e.render(), 'errors': e.error.children}
 
-        import pdb; pdb.set_trace()
         presentation = Presentation()
         presentation.name = data['Name']
         presentation.description = data['Description']
