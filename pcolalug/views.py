@@ -105,7 +105,7 @@ def add_presentation(request):
         presentation = Presentation()
         presentation.name = data['Name']
         presentation.description = data['Description']
-        presentation.data = data['Date']
+        presentation.date = data['Date']
 
         presentation.presenter_pk = int(data['Presenter'])
 
