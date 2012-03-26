@@ -36,7 +36,7 @@ class Presentation(SUEntity):
     """
     name = Column(UnicodeText)
     description = Column(UnicodeText)
-    date = Column(Date)
+    date = Column(Date, nullable = False)
     presenter_pk = Column(Integer, ForeignKey(User.pk), nullable=False)
     presenter = relationship(User)
     file_pk = Column(Integer, ForeignKey(File.pk))
