@@ -18,8 +18,6 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 import os
 from lib import get_data_dir
 
-
-
 class File(SUEntity):
     user_pk = Column(Integer, ForeignKey(User.pk), nullable=False)
     mimetype = Column(UnicodeText, nullable=False)
