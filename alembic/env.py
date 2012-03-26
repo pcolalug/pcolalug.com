@@ -48,6 +48,8 @@ def run_migrations_online():
     and associate a connection with the context.
     
     """
+    from pcolalug import models
+
     engine = engine_from_config(
                 config.get_section(config.config_ini_section), 
                 prefix='sqlalchemy.', 
