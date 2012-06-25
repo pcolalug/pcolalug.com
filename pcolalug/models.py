@@ -8,17 +8,35 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 
-from pyramid_signup.models import SUEntity
-from pyramid_signup.models import User
-
 from zope.sqlalchemy import ZopeTransactionExtension
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 import os
 from lib import get_data_dir
+from sqlalchemy.ext.declarative import declarative_base
 
-class File(SUEntity):
+from horus.models               import GroupMixin
+from horus.models               import UserMixin
+from horus.models               import UserGroupMixin
+from horus.models               import ActivationMixin
+from horus.models               import BaseModel
+
+Base = declarative_base(cls=BaseModel)
+
+class User(UserMixin, Base):
+    pass
+
+class Group(GroupMixin, Base):
+    pass
+
+class UserGroup(UserGroupMixin, Base):
+    pass
+
+class Activation(ActivationMixin, Base):
+    pass
+
+class File(Base):
     user_pk = Column(Integer, ForeignKey(User.pk), nullable=False)
     mimetype = Column(UnicodeText, nullable=False)
     uid = Column(UnicodeText, nullable=False)
@@ -30,7 +48,7 @@ class File(SUEntity):
         if self.uid:
             return request.static_url(os.path.join(get_data_dir(), 'uploads/%s' % self.uid))
 
-class Presentation(SUEntity):
+class Presentation(Base):
     """
     A meeting we are having
     """

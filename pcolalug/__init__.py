@@ -16,7 +16,6 @@ from horus.interfaces import IHorusProfileForm
 from horus.interfaces import IHorusProfileSchema
 from horus.events import ProfileUpdatedEvent
 from horus import groupfinder
-from horus.models import SUEntity
 
 
 import deform
@@ -26,6 +25,7 @@ from deform_jinja2 import jinja2_renderer_factory
 from deform_jinja2.translator import PyramidTranslator
 
 from pcolalug.models import DBSession
+from pcolalug.models import Base
 from pcolalug.forms import UNIForm
 from pcolalug.schemas import LUGProfileSchema
 from pcolalug.views import handle_profile_group
@@ -38,8 +38,8 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
 
     DBSession.configure(bind=engine)
-    SUEntity.metadata.bind = engine
-    SUEntity.metadata.create_all(engine)
+    Base.metadata.bind = engine
+    Base.metadata.create_all(engine)
 
 
     authn_policy = AuthTktAuthenticationPolicy('pc0lalugs0secret', callback=groupfinder)

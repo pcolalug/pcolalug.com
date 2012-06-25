@@ -4,11 +4,11 @@ from pyramid.security import has_permission
 import urllib
 from dateutil import tz
 from icalendar import Calendar
-from pyramid_signup.managers import UserManager
-from pyramid_signup.managers import UserGroupManager
 from pcolalug.models import DBSession
 from pcolalug.models import Presentation
 from pcolalug.models import File
+from pcolalug.models import User
+from pcolalug.models import Group
 from pcolalug.forms import UNIForm
 from pcolalug.schemas import PresentationSchema
 
@@ -69,8 +69,7 @@ def calendar(request):
 @view_config(permission='group:admin', route_name='admin', renderer='admin.jinja2')
 def admin(request):
 
-    mgr = UserManager(request)
-    return {'users': mgr.get_all()}
+    return {'users': User.get_all(request)}
 
 @view_config(route_name='presentations', renderer='presentations.jinja2')
 def presentations(request):
@@ -173,11 +172,10 @@ def handle_profile_group(event):
 #    session.commit()
 
     if has_permission('group:admin', request.context, request):
-        mgr = UserGroupManager(request)
         group_pk = event.values.get('group', None)
 
         if group_pk:
-            group = mgr.get_by_pk(group_pk)
+            group = Group.get_by_pk(request, group_pk)
 
             if not group in event.user.groups:
                 event.user.groups.append(group)

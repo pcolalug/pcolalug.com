@@ -34,6 +34,7 @@ requires = [
     , 'horus'
     , 'deform_jinja2'
     , 'pyramid_deform'
+    , 'waitress'
 ]
 
 if sys.version_info[:3] < (2,5,0): # pragma: no cover

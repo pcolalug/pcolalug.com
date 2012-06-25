@@ -1,9 +1,7 @@
 import colander
 import deform
 
-from pyramid_signup.schemas import ProfileSchema
-from pyramid_signup.managers import UserGroupManager
-from pyramid_signup.managers import UserManager
+from horus.schemas import ProfileSchema
 from pyramid.security import has_permission
 
 from deform.interfaces import FileUploadTempStore
@@ -11,6 +9,8 @@ from deform.interfaces import FileUploadTempStore
 import os
 
 tmpstore = FileUploadTempStore()
+from pcolalug.models import Group
+from pcolalug.models import User
 
 @colander.deferred
 def choices_widget(node, kw):
@@ -18,9 +18,7 @@ def choices_widget(node, kw):
 
     if request.context:
         is_admin = has_permission('group:admin', request.context, request)
-        mgr = UserGroupManager(request)
-
-        groups = mgr.get_all()
+        groups = Group.get_all(request)
 
         if is_admin:
             choices = [
@@ -50,9 +48,7 @@ def presenter_widget(node, kw):
         ('', '- None -'),
     ]
 
-    mgr = UserManager(request)
-
-    for user in mgr.get_all():
+    for user in User.get_all(request):
         choices.append((str(user.pk), user.display_name))
 
     return deform.widget.SelectWidget(values=choices)
