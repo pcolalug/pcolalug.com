@@ -7,16 +7,16 @@ from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 from sqlalchemy import create_engine
 
-from pyramid_signup.interfaces import ISUSession
-from pyramid_signup.interfaces import ISULoginForm
-from pyramid_signup.interfaces import ISURegisterForm
-from pyramid_signup.interfaces import ISUForgotPasswordForm
-from pyramid_signup.interfaces import ISUResetPasswordForm
-from pyramid_signup.interfaces import ISUProfileForm
-from pyramid_signup.interfaces import ISUProfileSchema
-from pyramid_signup.events import ProfileUpdatedEvent
-from pyramid_signup import groupfinder
-from pyramid_signup.models import SUEntity
+from horus.interfaces import IHorusSession
+from horus.interfaces import IHorusLoginForm
+from horus.interfaces import IHorusRegisterForm
+from horus.interfaces import IHorusForgotPasswordForm
+from horus.interfaces import IHorusResetPasswordForm
+from horus.interfaces import IHorusProfileForm
+from horus.interfaces import IHorusProfileSchema
+from horus.events import ProfileUpdatedEvent
+from horus import groupfinder
+from horus.models import SUEntity
 
 
 import deform
@@ -35,13 +35,7 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
 
-    if settings.get('sqlalchemy.url', None):
-        engine = engine_from_config(settings, 'sqlalchemy.')
-    else:
-        from bundle_config import config
-
-        url = u"postgresql+psycopg2://%(username)s:%(password)s@%(host)s:%(port)s/%(database)s" % config['postgres']
-        engine = create_engine(url, echo=True)
+    engine = engine_from_config(settings, 'sqlalchemy.')
 
     DBSession.configure(bind=engine)
     SUEntity.metadata.bind = engine
@@ -71,36 +65,36 @@ def main(global_config, **settings):
 
     deform.Form.set_default_renderer(renderer)
 
-    config.registry.registerUtility(DBSession, ISUSession)
+    config.registry.registerUtility(DBSession, IHorusSession)
 
     config.include('pyramid_mailer')
 
-    config.include('pyramid_signup')
+    config.include('horus')
 
-    config.add_view('pyramid_signup.views.AuthController', attr='login', route_name='login',
+    config.add_view('horus.views.AuthController', attr='login', route_name='login',
             renderer='pcolalug:templates/login.jinja2')
 
-    config.add_view('pyramid_signup.views.ForgotPasswordController', attr='forgot_password', route_name='forgot_password',
+    config.add_view('horus.views.ForgotPasswordController', attr='forgot_password', route_name='forgot_password',
             renderer='pcolalug:templates/forgot_password.jinja2')
 
-    config.add_view('pyramid_signup.views.ForgotPasswordController', attr='reset_password', route_name='reset_password',
+    config.add_view('horus.views.ForgotPasswordController', attr='reset_password', route_name='reset_password',
             renderer='pcolalug:templates/reset_password.jinja2')
 
-    config.add_view('pyramid_signup.views.RegisterController', attr='register', route_name='register',
+    config.add_view('horus.views.RegisterController', attr='register', route_name='register',
             renderer='pcolalug:templates/register.jinja2')
 
-    config.add_view('pyramid_signup.views.ProfileController', attr='profile', route_name='profile',
+    config.add_view('horus.views.ProfileController', attr='profile', route_name='profile',
             renderer='pcolalug:templates/profile.jinja2',
             permission='access_user')
 
     override_forms = [
-        ISULoginForm, ISURegisterForm, ISUForgotPasswordForm,
-        ISUResetPasswordForm, ISUProfileForm
+        IHorusLoginForm, IHorusRegisterForm, IHorusForgotPasswordForm,
+        IHorusResetPasswordForm, IHorusProfileForm
     ]
     for form in override_forms:
         config.registry.registerUtility(UNIForm, form)
 
-    config.registry.registerUtility(LUGProfileSchema, ISUProfileSchema)
+    config.registry.registerUtility(LUGProfileSchema, IHorusProfileSchema)
 
 
     config.add_static_view('static', 'pcolalug:static', cache_max_age=3600)

@@ -8,6 +8,7 @@ README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
+
 ]
 
 if sys.version_info[:3] < (2,5,0): # pragma: no cover
