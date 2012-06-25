@@ -35,7 +35,18 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
 
-    engine = engine_from_config(settings, 'sqlalchemy.')
+    if os.environ.get('OPENSHIFT_APP_NAME', None):
+        url = u"postgresql+psycopg2://%(username)s:%(password)s@%(host)s:%(port)s/%(database)s" % {
+            'username': os.environ['OPENSHIFT_DB_USERNAME'],
+            'password': os.environ['OPENSHIFT_DB_PASSWORD'],
+            'host': os.environ['OPENSHIFT_DB_HOST'],
+            'port': os.environ['OPENSHIFT_DB_PORT'],
+            'database': os.environ['OPENSHIFT_APP_NAME']
+        }
+
+        engine = create_engine(url)
+    else:
+        engine = engine_from_config(settings, 'sqlalchemy.')
 
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
