@@ -8,7 +8,32 @@ README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
-
+    'pyramid_tm'
+    , 'pyramid_debugtoolbar'
+    , 'pyramid_jinja2'
+    , 'pyramid_beaker'
+    , 'pyramid_mailer'
+    , 'sphinx'
+    , 'gunicorn'
+    , 'supervisor'
+    , 'zope.interface'
+    , 'pyramid'
+    , 'SQLAlchemy'
+    , 'transaction'
+    , 'zope.sqlalchemy'
+    , 'psycopg2'
+    , 'cryptacular'
+    , 'PyCrypto'
+    , 'python-dateutil==1.5'
+    , 'icalendar'
+    , 'mock'
+    , 'coverage'
+    , 'webtest'
+    , 'alembic'
+    , 'pystache'
+    , 'horus'
+    , 'deform_jinja2'
+    , 'pyramid_deform'
 ]
 
 if sys.version_info[:3] < (2,5,0): # pragma: no cover
