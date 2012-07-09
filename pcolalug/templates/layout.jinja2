@@ -25,11 +25,11 @@
         <nav id="user">
             <ul>
                 {% if request.user %}
-                    <li>Welcome, <a href="{{ request.route_url('profile', user_pk=request.user.pk) }}">{{ request.user.display_name }}</a> (<a href="{{ request.route_url('logout') }}">Logout</a>)</li>
+                    <li>Welcome, <a href="{{ request.route_url('horus_profile', user_pk=request.user.pk) }}">{{ request.user.display_name }}</a> (<a href="{{ request.route_url('horus_logout') }}">Logout</a>)</li>
                 {% else %}
-                    <a href="{{ request.route_url('register') }}">Register</a>
+                    <a href="{{ request.route_url('horus_register') }}">Register</a>
                     or
-                    <a href="{{ request.route_url('login') }}">Login</a>
+                    <a href="{{ request.route_url('horus_login') }}">Login</a>
                 {% endif %}
             </ul>
         </nav>

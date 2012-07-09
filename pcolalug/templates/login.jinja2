@@ -2,8 +2,8 @@
 {% block content %}
 <h1>Login</h1>
 <div id="login_form">
-  <a href="{{ request.route_url('register') }}">{{ gettext("Register") }}</a> or 
-  <a href="{{ request.route_url('forgot_password') }}">{{ gettext("Forgot Password?") }}</a>
+  <a href="{{ request.route_url('horus_register') }}">{{ gettext("Register") }}</a> or 
+  <a href="{{ request.route_url('horus_forgot_password') }}">{{ gettext("Forgot Password?") }}</a>
   {{ form | safe }}
 </div>
 {% endblock %}

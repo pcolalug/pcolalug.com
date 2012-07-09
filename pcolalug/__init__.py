@@ -7,7 +7,7 @@ from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 from sqlalchemy import create_engine
 
-from horus.interfaces import IHorusSession
+from hem.interfaces   import IDBSession
 from horus.interfaces import IHorusLoginForm
 from horus.interfaces import IHorusRegisterForm
 from horus.interfaces import IHorusForgotPasswordForm
@@ -76,25 +76,25 @@ def main(global_config, **settings):
 
     deform.Form.set_default_renderer(renderer)
 
-    config.registry.registerUtility(DBSession, IHorusSession)
+    config.registry.registerUtility(DBSession, IDBSession)
 
     config.include('pyramid_mailer')
 
     config.include('horus')
 
-    config.add_view('horus.views.AuthController', attr='login', route_name='login',
+    config.add_view('horus.views.AuthController', attr='login', route_name='horus_login',
             renderer='pcolalug:templates/login.jinja2')
 
-    config.add_view('horus.views.ForgotPasswordController', attr='forgot_password', route_name='forgot_password',
+    config.add_view('horus.views.ForgotPasswordController', attr='forgot_password', route_name='horus_forgot_password',
             renderer='pcolalug:templates/forgot_password.jinja2')
 
-    config.add_view('horus.views.ForgotPasswordController', attr='reset_password', route_name='reset_password',
+    config.add_view('horus.views.ForgotPasswordController', attr='reset_password', route_name='horus_reset_password',
             renderer='pcolalug:templates/reset_password.jinja2')
 
-    config.add_view('horus.views.RegisterController', attr='register', route_name='register',
+    config.add_view('horus.views.RegisterController', attr='register', route_name='horus_register',
             renderer='pcolalug:templates/register.jinja2')
 
-    config.add_view('horus.views.ProfileController', attr='profile', route_name='profile',
+    config.add_view('horus.views.ProfileController', attr='profile', route_name='horus_profile',
             renderer='pcolalug:templates/profile.jinja2',
             permission='access_user')
 
